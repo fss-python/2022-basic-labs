@@ -1,0 +1,14 @@
+# Project artifacts
+data
+*.dic
+
+# Environment
+.idea
+venv
+
+# Python
+*.pyc
+__pycache__
+
+# OS
+.DS_Store
