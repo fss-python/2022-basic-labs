@@ -17,11 +17,11 @@ class TestRR(unittest.TestCase):
         self.assertIsNone(calculate_rr([1] * 100, [i * self.min_correct_rr for i in range(10)]))
 
     def test_rr_with_gibberish(self):
-        self.assertIsNone(self.non_numerical, self.non_numerical)
-        self.assertIsNone(list(range(10)), self.non_numerical)
-        self.assertIsNone(self.non_numerical, list(range(10)))
+        self.assertIsNone(calculate_rr(self.non_numerical, self.non_numerical))
+        self.assertIsNone(calculate_rr(list(range(10)), self.non_numerical))
+        self.assertIsNone(calculate_rr(self.non_numerical, list(range(10))))
         # values not equal to 0 and 1
-        self.assertIsNone(list(range(100)), list(range(100)))
+        self.assertIsNone(calculate_rr(list(range(100)), list(range(100))))
 
 
 if __name__ == "__main__":
