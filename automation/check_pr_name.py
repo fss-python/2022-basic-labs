@@ -28,7 +28,7 @@ if __name__ == '__main__':
         print('Skipping PR name checks due to label.')
         sys.exit(0)
 
-    if args.pr_author in ('demid5111', 'abakhchina'):
+    if args.pr_author in ('demid5111', 'abakhchina', 'AlexeyChikhachev'):
         print('Skipping PR name checks due to author.')
         sys.exit(0)
 
