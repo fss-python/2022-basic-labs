@@ -1,6 +1,9 @@
 import unittest
 
 from lab_1.main import calculate_rr
+from lab_1.tests import test_spikes
+from lab_1.tests import test_times
+from lab_1.tests import test_rrs
 
 
 class TestRR(unittest.TestCase):
@@ -9,8 +12,8 @@ class TestRR(unittest.TestCase):
     non_numerical = ["a", "b", "c", "d", "e", "f"]
 
     def test_rr(self):
-        #Current code in lab1 doesn't work correctly, will implement once solved
-        pass
+        self.assertListEqual(calculate_rr(test_spikes, test_times), test_rrs)
+
 
     def test_rr_list_size_mismatch(self):
         self.assertIsNone(calculate_rr([1] * 10, [i * self.min_correct_rr for i in range(100)]))
