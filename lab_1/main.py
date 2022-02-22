@@ -50,6 +50,7 @@ def calculate_rr(maximums: list, times: list):
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
+    print("hi hi hi!!!")
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
