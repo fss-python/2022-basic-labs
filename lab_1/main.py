@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 def read_ecg_raw_file(file_path: Path):
     try:
         with open(file_path) as f:
@@ -50,6 +49,7 @@ def calculate_rr(maximums: list, times: list):
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
+    print('hello, Kate')
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
