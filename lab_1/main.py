@@ -30,6 +30,7 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
+    return 0.8*max(signal)
     pass
 
 
