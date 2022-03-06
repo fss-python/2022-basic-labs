@@ -41,7 +41,7 @@
 |:--:|:---|:---|:---|
 |15.02.2022|Знакомство. Историческая справка. Преимущества и недостатки языка Python.|[Видео урока](https://drive.google.com/file/d/15qGMMg1gm2LPKEMhU_dYj6rXufUlqGt9/view?usp=sharing)|N/A|
 |22.02.2022|Выполнение программ на Python. Работа с числами. Разбираемся с заданием лабораторной работы|[Видео урока](https://drive.google.com/file/d/13lmOBSIps2vlYVWsYLR7Poo1HH4LJEwQ/view?usp=sharing)|[Листинг](./seminars/02.22.2022/practice_2.py)|
-|02.03.2022|Работа со списками и циклами|[Видео урока](https://drive.google.com/file/d/1TwIsu6NB_5TnHYsTALhOjkLfamwWG9Aj/view?usp=sharing)|[Листинг](./seminars/03.02.2022/practice_3.py)|
+|02.03.2022|Работа со списками: создание, изменение, основные свойства. Цикл `for`: базовый синтаксис, `break`  и  `continue`.|[Видео урока](https://drive.google.com/file/d/1TwIsu6NB_5TnHYsTALhOjkLfamwWG9Aj/view?usp=sharing)|[Листинг](./seminars/03.02.2022/practice_3.py)|
 
 ## Литература
 
