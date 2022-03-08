@@ -1,5 +1,3 @@
-
-
 from pathlib import Path
 
 
@@ -32,16 +30,29 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
+    threshold=max(ecg_raw)*0.8
+
     pass
 
 
 def detect_maximums(signal: list, threshold: int):
     """Labeling RR peaks"""
+    ecg_maximums=[]
+    for i in ecg_raw:
+        if i>=threshold:
+            ecg_maximums.append(1)
+        else:
+            ecg_maximums.append(0)
+    print (ecg_maximums)
+
     pass
 
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
+    ecg_times=[]
+
+
     pass
 
 
@@ -52,7 +63,7 @@ def calculate_rr(maximums: list, times: list):
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
-    print ('hi')
+
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
