@@ -42,7 +42,7 @@
 |15.02.2022|Знакомство. Историческая справка. Преимущества и недостатки языка Python.|[Видео урока](https://drive.google.com/file/d/15qGMMg1gm2LPKEMhU_dYj6rXufUlqGt9/view?usp=sharing)|N/A|
 |22.02.2022|Выполнение программ на Python. Работа с числами. Разбираемся с заданием лабораторной работы|[Видео урока](https://drive.google.com/file/d/13lmOBSIps2vlYVWsYLR7Poo1HH4LJEwQ/view?usp=sharing)|[Листинг](./seminars/02.22.2022/practice_2.py)|
 |02.03.2022|Работа со списками: создание, изменение, основные свойства. Цикл `for`: базовый синтаксис, `break`  и  `continue`.|[Видео урока](https://drive.google.com/file/d/1TwIsu6NB_5TnHYsTALhOjkLfamwWG9Aj/view?usp=sharing)|[Листинг](./seminars/03.02.2022/practice_3.py)|
-|09.03.2022|Функции: знакомство и базовый синтаксис.|[Видео урока](https://drive.google.com/drive/folders/1LsiE-x-l9_cKVCJUsHIju8Y0CCpD1D-g?usp=sharing)|[Листинг](./seminars/03.09.2022/practice_4.py)|
+|09.03.2022|Функции: знакомство и базовый синтаксис.|[Видео урока](https://drive.google.com/file/d/170wSmMz84cWt_iZgS6taz3P0tRVgE7gN/view?usp=sharing)|[Листинг](./seminars/03.09.2022/practice_4.py)|
 
 ## Литература
 
