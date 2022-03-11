@@ -30,7 +30,7 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    threshold=max(ecg_raw) * 0.8
+    threshold=int (max(ecg_raw) * 0.8)
     return (threshold)
     pass
 
@@ -43,12 +43,11 @@ def detect_maximums(signal: list, threshold: int):
             ecg_maximums.append(0)
         elif ecg_raw[i+1]<ecg_raw[i] and ecg_raw[i-1]<ecg_raw[i]:
             ecg_maximums.append(1)
-
         else:
             ecg_maximums.append(0)
 
-
     return (ecg_maximums)
+
     pass
 
 
