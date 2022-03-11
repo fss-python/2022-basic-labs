@@ -30,7 +30,7 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    threshold=int (max(ecg_raw) * 0.8)
+    threshold=max(ecg_raw) * 0.8
     return (threshold)
     pass
 
@@ -54,6 +54,12 @@ def detect_maximums(signal: list, threshold: int):
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
     ecg_times=[]
+    ecg_times.append(0)
+    for i in range (len(ecg_raw)):
+        ecg_times.append(ecg_times[i]+1000/sample_rate)
+    return (ecg_times)
+
+
 
 
     pass
