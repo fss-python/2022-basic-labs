@@ -43,6 +43,7 @@
 |22.02.2022|Выполнение программ на Python. Работа с числами. Разбираемся с заданием лабораторной работы|[Видео урока](https://drive.google.com/file/d/13lmOBSIps2vlYVWsYLR7Poo1HH4LJEwQ/view?usp=sharing)|[Листинг](./seminars/02.22.2022/practice_2.py)|
 |02.03.2022|Работа со списками: создание, изменение, основные свойства. Цикл `for`: базовый синтаксис, `break`  и  `continue`.|[Видео урока](https://drive.google.com/file/d/1TwIsu6NB_5TnHYsTALhOjkLfamwWG9Aj/view?usp=sharing)|[Листинг](./seminars/03.02.2022/practice_3.py)|
 |09.03.2022|Функции: знакомство и базовый синтаксис.|[Видео урока](https://drive.google.com/file/d/170wSmMz84cWt_iZgS6taz3P0tRVgE7gN/view?usp=sharing)|[Листинг](./seminars/03.09.2022/practice_4.py)|
+|09.03.2022|Функции: формулируем алгоритм и выражаем средствами языка. Строки - неизменяемые последовательности, методы `join` и `split`.|[Видео урока пока нет](https://drive.google.com/file/d/170wSmMz84cWt_iZgS6taz3P0tRVgE7gN/view?usp=sharing)|[Листинг](./seminars/03.15.2022/practice_5.py)|
 
 ## Литература
 
