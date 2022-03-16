@@ -50,7 +50,7 @@ def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
     ecg_times=[]
     ecg_times.append(0)
-    for i in range (len(ecg_raw)):
+    for i in range (len(signal)):
         ecg_times.append(ecg_times[i]+1000/sample_rate)
     return ecg_times
 
