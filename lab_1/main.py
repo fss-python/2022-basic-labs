@@ -54,11 +54,12 @@ def detect_maximums(signal: list, threshold: float):
                     ecg_maximums.append(1)
                 else:
                     ecg_maximums.append(0)
-            for i in range(len(signal[1:])):
+            for i in range(len(signal[1:-1])):
                 if signal[i] > threshold and signal[i + 1] < signal[i] and signal[i - 1] < signal[i]:
                     ecg_maximums.append(1)
                 else:
                     ecg_maximums.append(0)
+
             return ecg_maximums
 
 def calculate_times(signal: list, sample_rate: int):
