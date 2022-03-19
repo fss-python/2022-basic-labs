@@ -84,8 +84,6 @@ def calculate_rr(maximums: list, times: list):
 
 
 
-
-
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
     print('hi')
