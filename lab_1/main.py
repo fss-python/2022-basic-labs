@@ -31,7 +31,7 @@ def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
     if signal is None:
         return None
-    if signal.count() <= 0:
+    if len(signal) <= 0:
         return None
     return max(signal) * 0.8
 
@@ -39,19 +39,49 @@ def calculate_threshold(signal: list):
 
 def detect_maximums(signal: list, threshold: int):
     """Labeling RR peaks"""
-    for val in list:
-        print(val)
-    pass
+    final_list = []
+    for index, item in enumerate(signal, start=0):
+        if 0 < index < (len(signal) - 1):
+            if item >= threshold and signal[index-1] < item and signal[index+1] < item:
+                final_list.append(1)
+            else:
+                final_list.append(0)
+        else:
+            final_list.append(0)
+    '''print (final_list)'''
+    return final_list
 
 
 def calculate_times(signal: list, sample_rate: int):
+    final_list = []
+    time_mc = 0
+    time_counter = sample_rate / 1000
+    for index, item in enumerate(signal, start=0):
+        final_list.append(time_mc)
+        time_mc += time_counter
+    return final_list
+
     """Calculating timestamp for each item in ECG"""
     pass
 
 
 def calculate_rr(maximums: list, times: list):
+    final_list = []
+    index_max_prev = -1
+    for index_max, item_max in enumerate(maximums, start=0):
+        if item_max == 1:
+            if index_max_prev != -1:
+                time_temp = times[index_max] - times[index_max_prev]
+                if time_temp > 400:
+                    final_list.append(time_temp)
+            index_max_prev = index_max
+    '''print(final_list)'''
+    return final_list
+
+
+
     """Extract RR intervals"""
-    pass
+    '''pass'''
 
 
 # Lab 1 demonstration goes below
