@@ -30,26 +30,65 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    pass
+    def find_maximum(elements):
+        maximum = 0
+        for element in elements:
+            if element > maximum:
+                maximum = element
+        return maximum
+    threshold = find_maximum(signal) * 0.8
+    return threshold
 
 
-def detect_maximums(signal: list, threshold: int):
+def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    pass
+    ecg_maximums = []
+    for element in range(len(signal)):
+        if signal [element] >= threshold and signal [element]> signal [element-1] and signal [element]> signal [element+1]:
+            ecg_maximums.append (1)
+        else:
+            ecg_maximums.append(0)
+    return ecg_maximums
+
 
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
-    pass
+    ecg_times = []
+    ecg_times.append(0)
+
+    for element in range(len(signal)):
+        ecg_times.append(ecg_times[element]+1000/sample_rate)
+    return ecg_times
+
 
 
 def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
-    pass
+
+    time_ms = [0]
+    value = []
+    ecg_rr = []
+    for i in range(len(maximums)):
+        if maximums[i] == 1:
+            time_ms.append(times[i])
+    for i in range(len(time_ms)):
+        if time_ms[i] > 400:
+            ecg_rr.append(time_ms[i])
+    return ecg_rr
+
+
+
+
+
+
+
+
 
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
+    print('hi')
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
