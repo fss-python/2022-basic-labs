@@ -62,7 +62,7 @@ def calculate_times(signal: list, sample_rate: int):
     return final_list
 
     """Calculating timestamp for each item in ECG"""
-    pass
+    '''pass'''
 
 
 def calculate_rr(maximums: list, times: list):
