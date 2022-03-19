@@ -29,11 +29,18 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    pass
+    if signal is None:
+        return None
+    if signal.count() <= 0:
+        return None
+    return max(signal) * 0.8
+
 
 
 def detect_maximums(signal: list, threshold: int):
     """Labeling RR peaks"""
+    for val in list:
+        print(val)
     pass
 
 
