@@ -51,7 +51,6 @@ def detect_maximums(signal: list, threshold: float):
     return ecg_maximums
 
 
-
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
     ecg_times = []
@@ -76,6 +75,7 @@ def calculate_rr(maximums: list, times: list):
         if time_ms[i] > 400:
             ecg_rr.append(time_ms[i])
     return ecg_rr
+
 
 
 
