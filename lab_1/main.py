@@ -85,14 +85,14 @@ def calculate_times(signal: list, sample_rate: int):
 
 def calculate_rr(maximums: list, times: list):
     if maximums is None:
-        return None
+        return []
     if len(maximums) <= 0:
-        return None
+        return []
 
     if times is None:
-        return None
+        return []
     if len(times) <= 0:
-        return None
+        return []
 
     final_list = []
     index_max_prev = -1
