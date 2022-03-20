@@ -36,9 +36,8 @@ def calculate_threshold(signal: list):
     max_signal = max(signal)
     if max_signal is None:
         return None
-
     if type(max_signal) == int or float:
-        return float(max_signal) * 0.8
+        return max_signal * 0.8
 
     return None
 
