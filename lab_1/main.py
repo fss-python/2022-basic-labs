@@ -62,7 +62,7 @@ def detect_maximums(signal: list, threshold: float):
 def calculate_times(signal: list, sample_rate: int):
     final_list = []
     time_mc = 0
-    time_counter = sample_rate / 1000
+    time_counter =  1000 / sample_rate
     for index, item in enumerate(signal, start=0):
         final_list.append(time_mc)
         time_mc += time_counter
