@@ -56,7 +56,7 @@ def detect_maximums(signal: list, threshold: float):
         return None
     for index, item in enumerate(signal, start = 0):
         if 0 < index < (len(signal) - 1):
-            if item is not str and item >= threshold and signal[index-1] < item and signal[index+1] < item:
+            if type(item) is not str and item >= threshold and signal[index-1] < item and signal[index+1] < item:
                 final_list.append(1)
             else:
                 final_list.append(0)
