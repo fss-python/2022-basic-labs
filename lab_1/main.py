@@ -36,14 +36,18 @@ def calculate_threshold(signal: list):
     max_signal = max(signal)
     if max_signal is None:
         return None
+
+    if max_signal is str:
+        return None
+
     return float(max_signal) * 0.8
 
 
 
-def detect_maximums(signal: list, threshold: int):
+def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
     final_list = []
-    for index, item in enumerate(signal, start=0):
+    for index, item in enumerate(signal, start = 0):
         if 0 < index < (len(signal) - 1):
             if item >= threshold and signal[index-1] < item and signal[index+1] < item:
                 final_list.append(1)
@@ -65,7 +69,7 @@ def calculate_times(signal: list, sample_rate: int):
     return final_list
 
     """Calculating timestamp for each item in ECG"""
-    '''pass'''
+
 
 
 def calculate_rr(maximums: list, times: list):
