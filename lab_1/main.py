@@ -47,6 +47,10 @@ def calculate_threshold(signal: list):
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
     final_list = []
+    if signal is None:
+        return None
+    if len(signal) <= 0:
+        return None
     for index, item in enumerate(signal, start = 0):
         if 0 < index < (len(signal) - 1):
             if item >= threshold and signal[index-1] < item and signal[index+1] < item:
@@ -61,8 +65,12 @@ def detect_maximums(signal: list, threshold: float):
 
 def calculate_times(signal: list, sample_rate: int):
     final_list = []
+    if signal is None:
+        return None
+    if len(signal) <= 0:
+        return None
     time_mc = 0
-    time_counter =  1000 / sample_rate
+    time_counter = 1000 / sample_rate
     for index, item in enumerate(signal, start=0):
         final_list.append(time_mc)
         time_mc += time_counter
@@ -73,6 +81,16 @@ def calculate_times(signal: list, sample_rate: int):
 
 
 def calculate_rr(maximums: list, times: list):
+    if maximums is None:
+        return None
+    if len(maximums) <= 0:
+        return None
+
+    if times is None:
+        return None
+    if len(times) <= 0:
+        return None
+
     final_list = []
     index_max_prev = -1
     for index_max, item_max in enumerate(maximums, start=0):
