@@ -30,27 +30,100 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    pass
+    if type(signal) != list:
+        return None
+    for s in signal:
+        if type(s) != float:
+            return None
+        else:
+            thrh = max(signal) * 0.8
+            return (thrh)
+    #pass
 
 
-def detect_maximums(signal: list, threshold: int):
+def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    pass
+    if type(signal) != list or type(threshold) != float:
+        return None
+    mxms = [0]
+    i = 1
+    for s in signal[1:-1]:
+        if type(s) != float:
+            return None
+        else:
+            if signal[i] >= threshold and signal[i - 1] < signal[i] and signal[i + 1] < signal[i]:
+                    mxms.append(1)
+                    i+=1
+            else:
+                    mxms.append(0)
+                    i+=1
+    mxms.append(0)
+    return mxms
+    #pass
 
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
-    pass
+    if type(signal) != list or type(sample_rate) != int:
+        return None
+    else:
+        tms = []
+        i = 1000 / sample_rate
+        ms = 0.0
+        for s in range(len(signal)):
+            tms.append(ms)
+            ms += i
+        return tms
+    #pass
 
 
 def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
-    pass
+    if type(maximums) != list or type(times) != list:
+        return None
+    ms_list = []
+    for i in range(len(maximums)):
+        if maximums[i] == 1:
+            ms_list.append(times[i])
+    #print(ms_list)
+    #print(len(ms_list))
+    prev = ms_list[0]
+    rr = [0, ]
+    for j in ms_list[1:]:
+        rr.append(j - prev)
+        prev = j
+    #print(rr)
+    rr_clean = []
+    for r in rr:
+        if r > 400:
+            rr_clean.append(r)
+    #print(rr_clean)
+    return rr_clean
+    #pass
+
+'''
+if type(maximums) != list or type(times) != list:
+    return None
+i = maximums.index(1)
+rr_list = []
+for m in maximums[i:]:
+    if type(m) != bool:
+        return None
+    if m == 1:
+        rr = times[maximums.index(1, i + 1)] - times[i]
+        print(rr)
+        rr_list.append(rr)
+        i += 1
+    else:
+        i += 1
+
+return rr_list
+'''
 
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
-    print('hello pretty')
+
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
@@ -67,11 +140,25 @@ if __name__ == '__main__':
     print('Detecting maximums')
     ecg_maximums = detect_maximums(signal=ecg_raw, threshold=threshold)
 
+    #print(ecg_maximums)
+    #print(ecg_maximums.count(1))
+    #print(len(ecg_raw))
+    #print(len(ecg_maximums))
+    #SAMPLE_RATE = 1500
+
     print('Calculating times for each ECG signal entry')
     ecg_times = calculate_times(signal=ecg_raw, sample_rate=SAMPLE_RATE)
 
+    #print(ecg_times)
+    #print(ecg_times[0:10],ecg_times[-10:-1])
+    #print(len(ecg_times))
+
     print('Calculating RR intervals')
     ecg_rr = calculate_rr(maximums=ecg_maximums, times=ecg_times)
+
+    #print(ecg_rr)
+    #print(type(ecg_rr))
+
     if not ecg_rr:
         print('Something went wrong. Unable to extract RR intervals from ECG signal')
     else:
