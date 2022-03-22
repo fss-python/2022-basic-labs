@@ -75,17 +75,19 @@ def detect_maximums(signal: list, threshold: float):
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
 
-    if type(signal) != list or type(sample_rate) != int:
+    if type(signal) != list:
+        return None
+    if type(sample_rate) != int:
         return None
     if len(signal) == 0:
         return None
     for i in signal:
-        if type(i) != float:
+        if type(i) != int and type(i) != float:
             return None
     ecg_times = []
     ecg_times.append(0.0)
-    for i in range(len(signal[1:])):
-        ecg_times.append(ecg_times[i]+1000/sample_rate)
+    for i in range(1, len(signal)):
+        ecg_times.append(i * 1000/sample_rate)
     return ecg_times
 
 
@@ -119,7 +121,7 @@ def calculate_rr(maximums: list, times: list):
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
-    """
+
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
@@ -145,6 +147,5 @@ if __name__ == '__main__':
         print('Something went wrong. Unable to extract RR intervals from ECG signal')
     else:
         print(f'Extracted {len(ecg_rr)} RR intervals from ECG raw signal')
-    """
-    a = detect_maximums([0.1, 0.2, 0.2, 0.3, 0.3, 0.3, 0.2, 0.1], 0)
-    print (a)
+
+
