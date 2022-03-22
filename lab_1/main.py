@@ -30,19 +30,19 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    if type(signal) != list:
+    if len(signal) == 0 or type(signal) != list:
         return None
     for s in signal:
         if type(s) != float:
             return None
     thrh = max(signal) * 0.8
     return (thrh)
-    #pass
 
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    if type(signal) != list or type(threshold) != float:
+    #if len(signal) == 0 or type(signal) != list or type(threshold) != float or type(threshold) != int:
+    if len(signal) == 0 or type(signal) != list or type(threshold) != float:
         return None
     for s in signal:
         if type(s) != float:
@@ -57,13 +57,13 @@ def detect_maximums(signal: list, threshold: float):
             mxms.append(0)
             i+=1
     mxms.append(0)
+    #print(len(mxms))
     return mxms
-    #pass
 
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
-    if type(signal) != list or type(sample_rate) != int:
+    if len(signal) == 0 or type(signal) != list or type(sample_rate) != int:
         return None
     for s in signal:
         if type(s) != float:
@@ -75,18 +75,16 @@ def calculate_times(signal: list, sample_rate: int):
         tms.append(ms)
         ms += i
     return tms
-    #pass
 
 
 def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
+    #if len(maximums) == 0 or type(maximums) != list or type(times) != list:
     if type(maximums) != list or type(times) != list:
         return None
     for m in maximums:
         if type(m) != int:
             return None
-    if len(maximums) == 0:
-        return None
     for t in times:
         if type(t) != float:
             return None
@@ -94,20 +92,16 @@ def calculate_rr(maximums: list, times: list):
     for i in range(len(maximums)):
         if maximums[i] == 1:
             ms_list.append(times[i])
-
     prev = ms_list[0]
     rr = [0, ]
     for j in ms_list[1:]:
         rr.append(j - prev)
         prev = j
-    #print(rr)
     rr_clean = []
     for r in rr:
         if r > 400:
             rr_clean.append(r)
-    #print(rr_clean)
     return rr_clean
-    #pass
 
 '''
 if type(maximums) != list or type(times) != list:
