@@ -45,19 +45,28 @@ def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
     if len(signal) == 0:
         return None
-    if type(signal) != list or type(threshold) != float:
+    if type(signal) != list:
         return None
+    if type(threshold) != float and type(threshold) != int:
+        return None
+
     for i in signal:
         if type(i) != float:
             return None
 
     ecg_maximums = []
-    if signal[0] > threshold and signal[0] > signal[1]:
-        ecg_maximums.append(1)
-    else:
-        ecg_maximums.append(0)
-    for i in range(len(signal[1:-1])):
-        if signal[i] > threshold and signal[i + 1] < signal[i] and signal[i - 1] < signal[i]:
+    for i in range(0,len(signal)):
+        is_maximum=False
+        if i == 0:
+            is_maximum = signal[i] >= threshold and signal[i] > signal[i+1]
+
+        if i > 0 and i < len(signal)-1:
+            is_maximum = signal[i] >= threshold and signal[i + 1] < signal[i] and signal[i - 1] <= signal[i]
+
+        if i == len(signal)-1:
+            is_maximum = signal[i] >= threshold and signal[i] >= signal[i-1]
+
+        if is_maximum:
             ecg_maximums.append(1)
         else:
             ecg_maximums.append(0)
@@ -110,7 +119,7 @@ def calculate_rr(maximums: list, times: list):
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
-
+    """
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
@@ -136,3 +145,6 @@ if __name__ == '__main__':
         print('Something went wrong. Unable to extract RR intervals from ECG signal')
     else:
         print(f'Extracted {len(ecg_rr)} RR intervals from ECG raw signal')
+    """
+    a = detect_maximums([0.1, 0.2, 0.2, 0.3, 0.3, 0.3, 0.2, 0.1], 0)
+    print (a)
