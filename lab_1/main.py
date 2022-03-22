@@ -44,18 +44,18 @@ def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
     if type(signal) != list or type(threshold) != float:
         return None
+    for s in signal:
+        if type(s) != float:
+            return None
     mxms = [0]
     i = 1
     for s in signal[1:-1]:
-        if type(s) != float:
-            return None
+        if signal[i] >= threshold and signal[i - 1] < signal[i] and signal[i + 1] < signal[i]:
+            mxms.append(1)
+            i+=1
         else:
-            if signal[i] >= threshold and signal[i - 1] < signal[i] and signal[i + 1] < signal[i]:
-                    mxms.append(1)
-                    i+=1
-            else:
-                    mxms.append(0)
-                    i+=1
+            mxms.append(0)
+            i+=1
     mxms.append(0)
     return mxms
     #pass
@@ -65,14 +65,16 @@ def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
     if type(signal) != list or type(sample_rate) != int:
         return None
-    else:
-        tms = []
-        i = 1000 / sample_rate
-        ms = 0.0
-        for s in range(len(signal)):
-            tms.append(ms)
-            ms += i
-        return tms
+    for s in signal:
+        if type(s) != float:
+            return None
+    tms = []
+    i = 1000 / sample_rate
+    ms = 0.0
+    for s in range(len(signal)):
+        tms.append(ms)
+        ms += i
+    return tms
     #pass
 
 
@@ -80,12 +82,19 @@ def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
     if type(maximums) != list or type(times) != list:
         return None
+    for m in maximums:
+        if type(m) != int:
+            return None
+    if len(maximums) == 0:
+        return None
+    for t in times:
+        if type(t) != float:
+            return None
     ms_list = []
     for i in range(len(maximums)):
         if maximums[i] == 1:
             ms_list.append(times[i])
-    #print(ms_list)
-    #print(len(ms_list))
+
     prev = ms_list[0]
     rr = [0, ]
     for j in ms_list[1:]:
