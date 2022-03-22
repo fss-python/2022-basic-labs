@@ -35,9 +35,8 @@ def calculate_threshold(signal: list):
     for s in signal:
         if type(s) != float:
             return None
-        else:
-            thrh = max(signal) * 0.8
-            return (thrh)
+    thrh = max(signal) * 0.8
+    return (thrh)
     #pass
 
 
@@ -132,10 +131,11 @@ if __name__ == '__main__':
     ecg_raw = read_ecg_raw_file(DATA_PATH)
 
     print(f'Read ECG file. It has {len(ecg_raw)} values!')
-
+    #signal=[1.3,5.7,6.7,4.7]
     print('Detecting threshold')
     threshold = calculate_threshold(signal=ecg_raw)
     print(f'ECG maximum threshold is {threshold}')
+
 
     print('Detecting maximums')
     ecg_maximums = detect_maximums(signal=ecg_raw, threshold=threshold)
