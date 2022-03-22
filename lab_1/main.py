@@ -29,30 +29,19 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    if signal is None:
+    if type(signal) != list:
         return None
-    if len(signal) <= 0:
+    if len(signal) == 0:
         return None
-    max_signal = max(signal)
-    if max_signal is None:
-        return None
-    print(max_signal)
-    if type(max_signal) == int or float:
-        try:
-            max_signal = max_signal * 0.8
-        except:
-            max_signal = None
-
-    return max_signal
-
-
+    for element in signal:
+        if type(element) != float:
+            return None
+    return max(signal) * 0.8
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
     final_list = []
-    if signal is None:
-        return None
-    if len(signal) <= 0:
+    if len(signal) == 0:
         return None
     for index, item in enumerate(signal, start = 0):
         if 0 < index < (len(signal) - 1):
@@ -70,7 +59,7 @@ def calculate_times(signal: list, sample_rate: int):
     final_list = []
     if signal is None:
         return None
-    if len(signal) <= 0:
+    if len(signal) == 0:
         return None
     time_mc = 0
     time_counter = 1000 / sample_rate
@@ -86,12 +75,12 @@ def calculate_times(signal: list, sample_rate: int):
 def calculate_rr(maximums: list, times: list):
     if maximums is None:
         return []
-    if len(maximums) <= 0:
+    if len(maximums) == 0:
         return []
 
     if times is None:
         return []
-    if len(times) <= 0:
+    if len(times) == 0:
         return []
 
     final_list = []
@@ -115,6 +104,9 @@ def calculate_rr(maximums: list, times: list):
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
     print('hello, Kate')
+    # signal = ['str', 1.0, 3.0, 'trh']
+    # print(calculate_threshold(signal))
+
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
