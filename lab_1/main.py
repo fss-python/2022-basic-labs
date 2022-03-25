@@ -51,7 +51,7 @@ def detect_maximums(signal: list, threshold: float):
     mxms = [0]
     i = 1
     for s in signal[1:-1]:
-        if signal[i] >= threshold and signal[i - 1] <= signal[i] and signal[i + 1] <= signal[i]:
+        if signal[i] >= threshold and signal[i - 1] <= signal[i] and signal[i + 1] < signal[i]:
             mxms.append(1)
             i+=1
         else:
