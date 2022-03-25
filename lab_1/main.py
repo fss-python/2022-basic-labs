@@ -41,7 +41,14 @@ def calculate_threshold(signal: list):
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    #if len(signal) == 0 or type(signal) != list or type(threshold) != float or type(threshold) != int:
+    #if type(signal) != list:
+        #return None
+    #if len(signal) == 0:
+        #return None
+    #if type(threshold) != float:
+        #return None
+    #if type(threshold) != int:
+        #return None
     if len(signal) == 0 or type(signal) != list or type(threshold) != float:
         return None
     for s in signal:
@@ -63,18 +70,37 @@ def detect_maximums(signal: list, threshold: float):
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
+    '''
     if len(signal) == 0 or type(signal) != list or type(sample_rate) != int:
         return None
     for s in signal:
         if type(s) != float:
+        #if type(s) != float or type(s) != int:
             return None
     tms = []
     i = 1000 / sample_rate
     ms = 0.0
-    for s in range(len(signal)):
+    for s in range(1, len(signal)):
         tms.append(ms)
         ms += i
+    #print(len(tms))
     return tms
+    '''
+
+    if len(signal) == 0 or type(signal) != list or type(sample_rate) != int:
+        return None
+    for s in signal:
+        if type(s) != float:
+            # if type(s) != float or type(s) != int:
+            return None
+    tms = []
+    step = 1000 / sample_rate
+    for i in range(len(signal)):
+        tms.append(i * step)
+    return tms
+
+
+
 
 
 def calculate_rr(maximums: list, times: list):
