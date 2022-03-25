@@ -30,7 +30,7 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    if len(signal) == 0 or type(signal) != list:
+    if type(signal) != list or len(signal) == 0:
         return None
     for s in signal:
         if type(s) != float:
@@ -43,14 +43,8 @@ def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
     if type(signal) != list or len(signal) == 0:
         return None
-    #if type(signal) != list:
-        #return None
-    #if len(signal) == 0:
-        #return None
     if type(threshold) != float and type(threshold) != int:
         return None
-    #if len(signal) == 0 or type(signal) != list or type(threshold) != float:
-        #return None
     for s in signal:
         if type(s) != float:
             return None
@@ -64,36 +58,16 @@ def detect_maximums(signal: list, threshold: float):
             mxms.append(0)
             i+=1
     mxms.append(0)
-    #print(len(mxms))
     return mxms
 
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
-    '''
-    if len(signal) == 0 or type(signal) != list or type(sample_rate) != int:
-        return None
-    for s in signal:
-        if type(s) != float:
-        #if type(s) != float or type(s) != int:
-            return None
-    tms = []
-    i = 1000 / sample_rate
-    ms = 0.0
-    for s in range(1, len(signal)):
-        tms.append(ms)
-        ms += i
-    #print(len(tms))
-    return tms
-    '''
-    if type(signal) != list:
-        return None
-    if len(signal) == 0:
+    if type(signal) != list or len(signal) == 0:
         return None
     if type(sample_rate) != int:
         return None
     for s in signal:
-        #if type(s) != float:
         if type(s) != float and type(s) != int:
             return None
     tms = []
@@ -103,13 +77,9 @@ def calculate_times(signal: list, sample_rate: int):
     return tms
 
 
-
-
-
 def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
-    #if len(maximums) == 0 or type(maximums) != list or type(times) != list:
-    if type(maximums) != list or type(times) != list:
+    if type(maximums) != list or type(times) != list or len(maximums) == 0 or len(times) == 0:
         return None
     for m in maximums:
         if type(m) != int:
