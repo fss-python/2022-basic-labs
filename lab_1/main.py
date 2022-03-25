@@ -41,16 +41,16 @@ def calculate_threshold(signal: list):
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
+    if type(signal) != list or len(signal) == 0:
+        return None
     #if type(signal) != list:
         #return None
     #if len(signal) == 0:
         #return None
-    #if type(threshold) != float:
-        #return None
-    #if type(threshold) != int:
-        #return None
-    if len(signal) == 0 or type(signal) != list or type(threshold) != float:
+    if type(threshold) != float and type(threshold) != int:
         return None
+    #if len(signal) == 0 or type(signal) != list or type(threshold) != float:
+        #return None
     for s in signal:
         if type(s) != float:
             return None
@@ -86,12 +86,15 @@ def calculate_times(signal: list, sample_rate: int):
     #print(len(tms))
     return tms
     '''
-
-    if len(signal) == 0 or type(signal) != list or type(sample_rate) != int:
+    if type(signal) != list:
+        return None
+    if len(signal) == 0:
+        return None
+    if type(sample_rate) != int:
         return None
     for s in signal:
-        if type(s) != float:
-            # if type(s) != float or type(s) != int:
+        #if type(s) != float:
+        if type(s) != float and type(s) != int:
             return None
     tms = []
     step = 1000 / sample_rate
