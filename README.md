@@ -44,6 +44,7 @@
 |02.03.2022|Работа со списками: создание, изменение, основные свойства. Цикл `for`: базовый синтаксис, `break`  и  `continue`.|[Видео урока](https://drive.google.com/file/d/1TwIsu6NB_5TnHYsTALhOjkLfamwWG9Aj/view?usp=sharing)|[Листинг](./seminars/03.02.2022/practice_3.py)|
 |09.03.2022|Функции: знакомство и базовый синтаксис.|[Видео урока](https://drive.google.com/file/d/170wSmMz84cWt_iZgS6taz3P0tRVgE7gN/view?usp=sharing)|[Листинг](./seminars/03.09.2022/practice_4.py)|
 |15.03.2022|Функции: формулируем алгоритм и выражаем средствами языка. Строки - неизменяемые последовательности, методы `join` и `split`.|[Видео урока](https://drive.google.com/file/d/1cowRg6FCzn5RUNWOvt1XoZf0uXnIZqhW/view?usp=sharing)|[Листинг](./seminars/03.15.2022/practice_5.py)|
+|22.03.2022|Лабораторная работа №1: разбор типовых ошибок и изучение проблем реализации по падающим тестам.|[Видео урока](https://drive.google.com/file/d/15x-h2BvDy5_ISE9HMP_zAk2vVBQQh-k6/view?usp=sharing)|N/A|
 
 ## Литература
 
