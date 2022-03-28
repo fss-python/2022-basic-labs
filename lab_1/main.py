@@ -46,9 +46,9 @@ def detect_maximums(signal: list, threshold: float):
     for i in signal:
         if type(i) != float:
             return None
-    for index, item in enumerate(signal, start = 0):
-        if 0 < index < (len(signal) - 1):
-            if item >= threshold and signal[index-1] < item and signal[index+1] < item:
+    for index, item in enumerate(signal):
+        if 0 < index < (len(signal)):
+            if item >= threshold and signal[index-1] < signal[index] and signal[index+1] < signal[index]:
                 final_list.append(1)
             else:
                 final_list.append(0)
