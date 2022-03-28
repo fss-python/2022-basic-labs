@@ -64,6 +64,10 @@ def calculate_times(signal: list, sample_rate: int):
         return None
     if len(signal) == 0:
         return None
+
+    for i in signal:
+        if type(i) != int and type(i) != float:
+            return None
     time_mc = 0
     time_counter = 1000 / sample_rate
     for index, item in enumerate(signal, start=0):
