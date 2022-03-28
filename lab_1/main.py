@@ -47,7 +47,6 @@ def detect_maximums(signal: list, threshold: float):
         if type(i) != float:
             return None
     for index, item in enumerate(signal):
-        print(item)
         if 0 < index < (len(signal)):
             if item >= threshold and signal[index-1] <= item and signal[index+1] < item:
                 final_list.append(1)
@@ -86,6 +85,13 @@ def calculate_rr(maximums: list, times: list):
         return []
     if len(times) == 0:
         return []
+    for element in maximums:
+        if type(element) != int:
+            return None
+
+    for element in times:
+        if type(element) != float:
+            return None
 
     final_list = []
     index_max_prev = -1
