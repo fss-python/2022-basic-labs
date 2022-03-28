@@ -40,6 +40,7 @@ def calculate_threshold(signal: list):
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
+
     final_list = []
     if len(signal) == 0:
         return None
