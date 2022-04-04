@@ -1,5 +1,7 @@
 import unittest
 
+import pytest
+
 from lab_1.main import calculate_threshold
 
 
@@ -14,20 +16,22 @@ class TestThreshold(unittest.TestCase):
     thd = 0.8
     non_numerical = ["a", "b", "c", "d", "e", "f"]
 
-
+    @pytest.mark.lab1
     def test_threshold_positive(self):
         self.assertEqual(calculate_threshold(self.positive_test_vals), self.thd * 1.0)
 
+    @pytest.mark.lab1
     def test_threshold_negative(self):
         self.assertEqual(calculate_threshold(self.negative_test_vals), self.thd * -0.1)
 
+    @pytest.mark.lab1
     def test_threshold_mixed(self):
         self.assertEqual(calculate_threshold(self.mixed_test_vals), self.thd * 1.0)
 
+    @pytest.mark.lab1
     def test_threshold_gibberish(self):
         self.assertIsNone(calculate_threshold(self.non_numerical), None)
 
 
 if __name__ == "__main__":
     unittest.main()
-

@@ -1,0 +1,6 @@
+[tool.pytest.ini_options]
+markers = [
+    "lab1: tests for lab 1",
+    "lab2: tests for lab 2",
+    "lab3: tests for lab 3"
+]
