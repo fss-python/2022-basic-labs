@@ -203,6 +203,7 @@ print(pnn)  # 0.645
 
 ```py
 hrv_characteristics = {
+    'SDNN': 0,
     'RMSSD': 0,
     'SDSD': 0,
     'NN50': 0, 
@@ -243,6 +244,7 @@ save_hrv_in_file(hrv_characteristics, './data/participant_28_baseline_hrv.txt')
 **Пример содержимого файла: `participant_28_baseline_hrv.txt`**
 
 ```
+SDNN	76.14
 RMSSD	57.44
 SDSD	57.54
 NN50	185
