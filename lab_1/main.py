@@ -27,12 +27,12 @@ def read_ecg_raw_file(file_path: Path):
         raw_signal.append(numeric_value)
     return raw_signal
 
-def checking_income_spisok (spisok: list):
-    if type(spisok) != list:
+def checking_income_spisok(income: list):
+    if type(income) != list:
         return None
-    if len(spisok) == 0:
+    if len(income) == 0:
         return None
-    for i in spisok:
+    for i in income:
         if type(i) != float:
             return None
 
@@ -40,7 +40,13 @@ def checking_income_spisok (spisok: list):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    checking_income_spisok(signal)
+    if type(signal) != list:
+        return None
+    if len(signal) == 0:
+        return None
+    for i in signal:
+        if type(i) != float:
+            return None
     maximum = signal[0]
     for i in signal:
         if i > maximum:
@@ -51,7 +57,13 @@ def calculate_threshold(signal: list):
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    checking_income_spisok(signal)
+    if type(signal) != list:
+        return None
+    if len(signal) == 0:
+        return None
+    for i in signal:
+        if type(i) != float:
+            return None
     if type(threshold) != float and type(threshold) != int:
         return None
 
@@ -60,13 +72,10 @@ def detect_maximums(signal: list, threshold: float):
         is_maximum=False
         if i == 0:
             is_maximum = signal[i] >= threshold and signal[i] > signal[i+1]
-
         if i > 0 and i < len(signal)-1:
             is_maximum = signal[i] >= threshold and signal[i + 1] < signal[i] and signal[i - 1] <= signal[i]
-
         if i == len(signal)-1:
             is_maximum = signal[i] >= threshold and signal[i] >= signal[i-1]
-
         if is_maximum:
             ecg_maximums.append(1)
         else:
@@ -75,10 +84,15 @@ def detect_maximums(signal: list, threshold: float):
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
-    checking_income_spisok(signal)
+    if type(signal) != list:
+        return None
+    if len(signal) == 0:
+        return None
+    for i in signal:
+        if type(i) != float:
+            return None
     if type(sample_rate) != int:
         return None
-
     ecg_times = []
     ecg_times.append(0.0)
     for i in range(1, len(signal)):
@@ -88,7 +102,13 @@ def calculate_times(signal: list, sample_rate: int):
 
 def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
-    checking_income_spisok(times)
+    if type(times) != list:
+        return None
+    if len(times) == 0:
+        return None
+    for i in times:
+        if type(i) != float:
+            return None
     if type(maximums) != list:
         return None
     if len(maximums) == 0:
@@ -131,9 +151,10 @@ if __name__ == '__main__':
 
     print('Calculating times for each ECG signal entry')
     ecg_times = calculate_times(signal=ecg_raw, sample_rate=SAMPLE_RATE)
-    #max=[1,0,0,1,0,1,0]
+
     print('Calculating RR intervals')
     ecg_rr = calculate_rr(maximums=ecg_maximums, times=ecg_times)
+
     if not ecg_rr:
         print('Something went wrong. Unable to extract RR intervals from ECG signal')
     else:
