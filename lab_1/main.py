@@ -1,6 +1,7 @@
 from pathlib import Path
 
 
+
 def read_ecg_raw_file(file_path: Path):
     try:
         with open(file_path) as f:
@@ -26,18 +27,20 @@ def read_ecg_raw_file(file_path: Path):
         raw_signal.append(numeric_value)
     return raw_signal
 
+def checking_income_spisok (spisok: list):
+    if type(spisok) != list:
+        return None
+    if len(spisok) == 0:
+        return None
+    for i in spisok:
+        if type(i) != float:
+            return None
 
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
 
-    if type(signal) != list:
-        return None
-    if len(signal) == 0:
-        return None
-    for i in signal:
-        if type(i) != float:
-            return None
+    checking_income_spisok(signal)
     return max(signal) * 0.8
 
 
