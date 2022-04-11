@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 def read_ecg_raw_file(file_path: Path):
     try:
         with open(file_path) as f:
@@ -30,26 +29,98 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    pass
+    if type(signal) != list:
+        return None
+    if len(signal) == 0:
+        return None
+    for element in signal:
+        if type(element) != float:
+            return None
+    return max(signal) * 0.8
 
-
-def detect_maximums(signal: list, threshold: int):
+def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    pass
+    final_list = []
+    if len(signal) == 0:
+        return None
+    for i in signal:
+        if type(i) != float:
+            return None
+    for index, item in enumerate(signal):
+        if 0 < index < (len(signal)):
+            if item >= threshold and signal[index-1] <= item and signal[index+1] < item:
+                final_list.append(1)
+            else:
+                final_list.append(0)
+        else:
+            final_list.append(0)
+    '''print (final_list)'''
+    return final_list
 
 
 def calculate_times(signal: list, sample_rate: int):
+    final_list = []
+    if signal is None:
+        return None
+    if len(signal) == 0:
+        return None
+
+    for i in signal:
+        if type(i) != int and type(i) != float:
+            return None
+    time_mc = 0
+    time_counter = 1000 / sample_rate
+    for index, item in enumerate(signal, start=0):
+        final_list.append(time_mc)
+        time_mc += time_counter
+    return final_list
+
     """Calculating timestamp for each item in ECG"""
-    pass
+
 
 
 def calculate_rr(maximums: list, times: list):
+    if maximums is None:
+        return []
+    if len(maximums) == 0:
+        return []
+
+    if times is None:
+        return []
+    if len(times) == 0:
+        return []
+    for element in maximums:
+        if type(element) != int:
+            return None
+
+    for element in times:
+        if type(element) != float:
+            return None
+
+    final_list = []
+    index_max_prev = -1
+    for index_max, item_max in enumerate(maximums, start=0):
+        if item_max == 1:
+            if index_max_prev != -1:
+                time_temp = times[index_max] - times[index_max_prev]
+                if time_temp > 400:
+                    final_list.append(time_temp)
+            index_max_prev = index_max
+    '''print(final_list)'''
+    return final_list
+
+
+
     """Extract RR intervals"""
-    pass
+    '''pass'''
 
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
+    print('hello, Kate')
+    # signal = ['str', 1.0, 3.0, 'trh']
+    # print(calculate_threshold(signal))
+
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
