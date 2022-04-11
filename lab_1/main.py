@@ -51,7 +51,7 @@ def calculate_threshold(signal: list):
     for i in signal:
         if i > maximum:
             maximum=i
-    return maximum*0.8
+    return round(maximum*0.8, 5)
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
@@ -105,7 +105,7 @@ def calculate_rr(maximums: list, times: list):
     if len(times) == 0:
         return None
     for i in times:
-        if type(i) != float and type(i) != int:
+        if type(i) != float:
             return None
     if type(maximums) != list:
         return None
