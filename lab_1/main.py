@@ -52,7 +52,7 @@ def calculate_threshold(signal: list):
         if i > maximum:
             maximum=i
     threshold = maximum*0.8
-    return round (threshold,7)
+    return round(threshold,7)
 
 
 def detect_maximums(signal: list, threshold: float):
@@ -89,7 +89,7 @@ def calculate_times(signal: list, sample_rate: int):
     if len(signal) == 0:
         return None
     for i in signal:
-        if type(i) != float:
+        if type(i) != float and type(i) != int:
             return None
     if type(sample_rate) != int:
         return None
@@ -142,16 +142,19 @@ if __name__ == '__main__':
     print(f'Read ECG file. It has {len(ecg_raw)} values!')
 
     print('Detecting threshold')
-
+    #negative_test_vals = [-0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0]
     threshold = calculate_threshold(signal=ecg_raw)
     print(f'ECG maximum threshold is {threshold}')
 
     print('Detecting maximums')
     ecg_maximums = detect_maximums(signal=ecg_raw, threshold=threshold)
 
-    print('Calculating times for each ECG signal entry')
-    ecg_times = calculate_times(signal=ecg_raw, sample_rate=SAMPLE_RATE)
 
+    print('Calculating times for each ECG signal entry')
+    ecg_times = calculate_times (signal=ecg_raw, sample_rate=SAMPLE_RATE)
+
+    #from lab_1.tests import test_spikes
+    #from lab_1.tests import test_times
     print('Calculating RR intervals')
     ecg_rr = calculate_rr(maximums=ecg_maximums, times=ecg_times)
 
