@@ -36,26 +36,24 @@ def checking_income_spisok (spisok: list):
         if type(i) != float:
             return None
 
+
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-
     checking_income_spisok(signal)
-    return max(signal) * 0.8
+    maximum = signal[0]
+    for i in signal:
+        if i > maximum:
+            maximum=i
+    threshold = maximum*0.8
+    return round (threshold,2)
 
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    if len(signal) == 0:
-        return None
-    if type(signal) != list:
-        return None
+    checking_income_spisok(signal)
     if type(threshold) != float and type(threshold) != int:
         return None
-
-    for i in signal:
-        if type(i) != float:
-            return None
 
     ecg_maximums = []
     for i in range(0,len(signal)):
@@ -77,16 +75,10 @@ def detect_maximums(signal: list, threshold: float):
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
-
-    if type(signal) != list:
-        return None
+    checking_income_spisok(signal)
     if type(sample_rate) != int:
         return None
-    if len(signal) == 0:
-        return None
-    for i in signal:
-        if type(i) != int and type(i) != float:
-            return None
+
     ecg_times = []
     ecg_times.append(0.0)
     for i in range(1, len(signal)):
@@ -96,16 +88,11 @@ def calculate_times(signal: list, sample_rate: int):
 
 def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
-
-    if type(maximums) != list or type(times) != list:
+    checking_income_spisok(times)
+    if type(maximums) != list:
         return None
     if len(maximums) == 0:
         return None
-    if len(times) == 0:
-        return None
-    for i in times:
-        if type(i) != float:
-            return None
     for i in maximums:
         if type(i) != int:
             return None
@@ -135,7 +122,8 @@ if __name__ == '__main__':
     print(f'Read ECG file. It has {len(ecg_raw)} values!')
 
     print('Detecting threshold')
-    threshold = calculate_threshold(signal=ecg_raw)
+    positive_test_vals = [-0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0]
+    threshold = calculate_threshold(signal=positive_test_vals)
     print(f'ECG maximum threshold is {threshold}')
 
     print('Detecting maximums')
