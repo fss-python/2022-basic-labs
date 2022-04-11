@@ -105,7 +105,7 @@ def calculate_rr(maximums: list, times: list):
     if len(times) == 0:
         return None
     for i in times:
-        if type(i) != float:
+        if type(i) != float and type(i) != int:
             return None
     if type(maximums) != list:
         return None
@@ -151,14 +151,16 @@ if __name__ == '__main__':
     print('Calculating times for each ECG signal entry')
     ecg_times = calculate_times (signal=ecg_raw, sample_rate=SAMPLE_RATE)
 
-    #from lab_1.tests import test_spikes
-    #from lab_1.tests import test_times
+    from lab_1.tests import test_spikes
+    from lab_1.tests import test_times
+
+    #non_numerical = ["a", "b", "c", "d", "e", "f"]
     print('Calculating RR intervals')
     ecg_rr = calculate_rr(maximums=ecg_maximums, times=ecg_times)
+
 
     if not ecg_rr:
         print('Something went wrong. Unable to extract RR intervals from ECG signal')
     else:
         print(f'Extracted {len(ecg_rr)} RR intervals from ECG raw signal')
-
 
