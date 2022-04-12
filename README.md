@@ -15,7 +15,7 @@
 
 * [Демидовский Александр Владимирович](https://www.hse.ru/staff/demidovs) - лектор
 * [Бахчина Анастасия Владимировна](https://ipran.ru/profile/%D0%B1%D0%B0%D1%85%D1%87%D0%B8%D0%BD%D0%B0-%D0%B0%D0%BD%D0%B0%D1%81%D1%82%D0%B0%D1%81%D0%B8%D1%8F-%D0%B2%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%BD%D0%B0/) - консультант
-* [Чихачёв Алексей Владимирович](https://does-not-exist) - ментор
+* [Чихачёв Алексей Владимирович](https://t.me/alexeyc7) - ментор
 
 План лабораторных работ:
 
@@ -37,9 +37,15 @@
 
 ## История занятий
 
-|Дата|Тема лекции|Запись занятия|
-|:--:|:---|:---|
-|14.02.2022|Тема|Ссылка|
+|Дата|Тема лекции|Запись занятия|Листинги кода|
+|:--:|:---|:---|:---|
+|15.02.2022|Знакомство. Историческая справка. Преимущества и недостатки языка Python.|[Видео урока](https://drive.google.com/file/d/15qGMMg1gm2LPKEMhU_dYj6rXufUlqGt9/view?usp=sharing)|N/A|
+|22.02.2022|Выполнение программ на Python. Работа с числами. Разбираемся с заданием лабораторной работы|[Видео урока](https://drive.google.com/file/d/13lmOBSIps2vlYVWsYLR7Poo1HH4LJEwQ/view?usp=sharing)|[Листинг](./seminars/02.22.2022/practice_2.py)|
+|02.03.2022|Работа со списками: создание, изменение, основные свойства. Цикл `for`: базовый синтаксис, `break`  и  `continue`.|[Видео урока](https://drive.google.com/file/d/1TwIsu6NB_5TnHYsTALhOjkLfamwWG9Aj/view?usp=sharing)|[Листинг](./seminars/03.02.2022/practice_3.py)|
+|09.03.2022|Функции: знакомство и базовый синтаксис.|[Видео урока](https://drive.google.com/file/d/170wSmMz84cWt_iZgS6taz3P0tRVgE7gN/view?usp=sharing)|[Листинг](./seminars/03.09.2022/practice_4.py)|
+|15.03.2022|Функции: формулируем алгоритм и выражаем средствами языка. Строки - неизменяемые последовательности, методы `join` и `split`.|[Видео урока](https://drive.google.com/file/d/1cowRg6FCzn5RUNWOvt1XoZf0uXnIZqhW/view?usp=sharing)|[Листинг](./seminars/03.15.2022/practice_5.py)|
+|22.03.2022|Лабораторная работа №1: разбор типовых ошибок и изучение проблем реализации по падающим тестам.|[Видео урока](https://drive.google.com/file/d/15x-h2BvDy5_ISE9HMP_zAk2vVBQQh-k6/view?usp=sharing)|N/A|
+|29.03.2022|Работа со словарями: создание, изменение, основные свойства. Инкрементальное ревью улучшений по лабораторной работе №1 |[Видео урока](https://drive.google.com/file/d/1f9aXXf4ebcZ7_gg4FwMBLBzDRMtHbrWJ/view?usp=sharing)|[Листинг](./seminars/03.29.2022/practice_6.py)|
 
 ## Литература
 

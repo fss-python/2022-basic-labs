@@ -6,7 +6,7 @@
 
 ```bash
 python -m pip install pytest
-python -m pytest -m lab_1
+python -m pytest -m lab1
 ```
 
 ## Что делать если в родительском репозитории есть изменения и они мне нужны?
