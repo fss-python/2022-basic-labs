@@ -27,33 +27,68 @@ def read_ecg_rr_file(file_path: Path):
         rr_signal.append(numeric_value)
     return rr_signal
 
+def test_input_of_float(input:list):
+    if type(input) != list or len(input)==0:
+        return None
+    for i in input:
+        if type(i) != float:
+            return None
+
+def calculating_rrd_list (signal: list):
+    rrd_list=[]
+    for i in range(0,len(signal)-1):
+        rrd=signal[i]-signal[i+1]
+        rrd_list.append(rrd)
+    return rrd_list
 
 # Lab 2 implementation goes below
-
 def calculate_sdnn(signal: list):
-    """Calculating SDNN for RR-intervals from the list"""
-    pass
-
+   "Calculating SDNN for RR-intervals from the list"
+   test_input_of_float(signal)
+   mean_rr=sum(signal)/len(signal)
+   sum_rri_rrmean=0
+   for i in signal:
+       rri_rrmean=(i-mean_rr)**2
+       sum_rri_rrmean+=rri_rrmean
+   return round(sum_rri_rrmean/len(signal)**0.5, 2)
 
 def calculate_rmssd(signal: list):
     """Calculating RMSSD for RR-intervals from the list"""
-    pass
-
+    test_input_of_float(signal)
+    sum_skobki = 0
+    rrd_list = calculating_rrd_list(signal)
+    for i in rrd_list:
+        skobki = i**2
+        sum_skobki+=skobki
+    return round((sum_skobki/(len(signal)-1))**0.5, 2)
 
 def calculate_sdsd(signal: list):
     """Calculating SDSD for RR-intervals from the list"""
-    pass
-
+    test_input_of_float(signal)
+    rrd_list=calculating_rrd_list(signal)
+    mean_rrd=sum(rrd_list)/len(rrd_list)
+    sum_skobki=0
+    for i in rrd_list:
+        sum_skobki+=(i-mean_rrd)**2
+    return round((sum_skobki/(len(signal)-1))**0.5, 2)
 
 def calculate_nn_pnn(signal: list, threshold: int):
     """Calculating NN and pNN for RR-intervals from the list"""
-    pass
-
+    test_input_of_float(signal)
+    if type(threshold) != int:
+        return -1
+    rrd_list=calculating_rrd_list(signal)
+    result=[]
+    nn=[]
+    for i in rrd_list:
+        if i <= threshold:
+            nn.append(i)
+    result.append(len(nn))
+    result.append(round(len(nn)/len(signal),2))
+    return result
 
 def save_hrv_in_file(hrv_characteristics: dict, path: str):
     """Calculating HRV time-scale metrics for RR-intervals from the list"""
-    pass
-
 
 
 # Lab 2 demonstration goes below
@@ -88,6 +123,7 @@ if __name__ == '__main__':
     print(f'pNN_20 is {round(pnn_20, 2)}')
 
     hrv_characteristics = {
+        'SDNN': SDNN,
         'RMSSD': RMSSD,
         'SDSD': SDSD,
         'NN50': nn_50,
