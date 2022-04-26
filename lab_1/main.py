@@ -104,6 +104,8 @@ def calculate_rr(maximums: list, times: list):
     for i in times:
         if type(i) != float and type(i) != int:
             return None
+    if len(maximums) != len(times):
+        return None
     high_markers_ms = []
     rr_without_threshold = [0.0]
     ecg_rr = []
