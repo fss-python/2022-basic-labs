@@ -65,9 +65,10 @@ def detect_maximums(signal: list, threshold: float):
         if i == len(signal)-1:
             is_maximum = signal[i] >= threshold and signal[i] >= signal[i-1]
         if is_maximum:
-            ecg_maximums.append(1)
+            ecg_maximums.append(int(1))
         else:
-            ecg_maximums.append(0)
+            ecg_maximums.append(int(0))
+
     return ecg_maximums
 
 def calculate_times(signal: list, sample_rate: int):
@@ -96,6 +97,8 @@ def calculate_rr(maximums: list, times: list):
         return None
     for i in maximums:
         if type(i) != float and type(i) != int:
+            return None
+        if i != 0 and i != 1:
             return None
     if type(times) != list:
         return None

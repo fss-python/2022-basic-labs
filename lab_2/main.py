@@ -88,7 +88,7 @@ def calculate_sdsd(signal: list):
     brackets_sum=0
     for i in rrd:
         brackets_sum+=(i-mean_rrd)**2
-    return round((brackets_sum/(len(signal[1:])))**0.5, 2)
+    return round((brackets_sum/(len(rrd[1:])))**0.5, 2)
 
 def calculate_nn_pnn(signal: list, threshold: int):
     """Calculating NN and pNN for RR-intervals from the list"""
@@ -105,10 +105,10 @@ def calculate_nn_pnn(signal: list, threshold: int):
     result=[]
     nn=[]
     for i in rrd_list:
-        if i <= threshold:
+        if abs(i) <= threshold:
             nn.append(i)
     result.append(len(nn))
-    result.append(round(len(nn)/len(signal), 2))
+    result.append(round(len(nn)/len(rrd_list), 2))
     return result
 
 def save_hrv_in_file(hrv_characteristics: dict, path: str):
