@@ -100,7 +100,7 @@ def calculate_rr(maximums: list, times: list):
     if type(maximums) != list or type(times) != list or len(maximums) == 0 or len(times) == 0:
         return None
     for m in maximums:
-        if type(m) != int:
+        if type(m) != int and type(m) != float:
             return None
     for t in times:
         if type(t) != float:
