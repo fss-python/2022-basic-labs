@@ -30,26 +30,84 @@ def read_ecg_raw_file(file_path: Path):
 # Lab 1 implementation goes below
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    pass
+    if type(signal) != list or len(signal) == 0:
+        return None
+    for s in signal:
+        if type(s) != float:
+            return None
+    return max(signal) * 0.8
 
 
-def detect_maximums(signal: list, threshold: int):
+def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    pass
+    if type(signal) != list or len(signal) == 0:
+        return None
+    if type(threshold) != float and type(threshold) != int:
+        return None
+    for s in signal:
+        if type(s) != float:
+            return None
+    maximums = []
+    for i in range(len(signal)):
+        is_maximum = False
+        if i == 0:
+            is_maximum = signal[i] >= threshold and signal[i] > signal[i + 1]
+        if 0 < i < len(signal) - 1:
+            is_maximum = signal[i] >= threshold and signal[i] >= signal[i - 1] and signal[i] > signal[i + 1]
+        if i == len(signal) - 1:
+            is_maximum = signal[i] >= threshold and signal[i] >= signal[i - 1]
+        if is_maximum:
+            maximums.append(1)
+        else:
+            maximums.append(0)
+    return maximums
 
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
-    pass
+    if type(signal) != list or len(signal) == 0:
+        return None
+    if type(sample_rate) != int:
+        return None
+    for s in signal:
+        if type(s) != float and type(s) != int:
+            return None
+    tms = []
+    step = 1000 / sample_rate
+    for i in range(len(signal)):
+        tms.append(i * step)
+    return tms
 
 
 def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
-    pass
+    if type(maximums) != list or type(times) != list or len(maximums) == 0 or len(times) == 0:
+        return None
+    for m in maximums:
+        if type(m) != int and type(m) != float:
+            return None
+    for t in times:
+        if type(t) != float:
+            return None
+    ms_list = []
+    for i in range(len(maximums)):
+        if maximums[i] == 1:
+            ms_list.append(times[i])
+    prev = ms_list[0]
+    rr = [0, ]
+    for j in ms_list[1:]:
+        rr.append(j - prev)
+        prev = j
+    rr_clean = []
+    for r in rr:
+        if r > 400:
+            rr_clean.append(r)
+    return rr_clean
 
 
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
+
     SAMPLE_RATE = 1000
     DATA_PATH = Path(__file__).parent / 'data' / 'participant_28_baseline_raw.txt'
 
@@ -71,6 +129,7 @@ if __name__ == '__main__':
 
     print('Calculating RR intervals')
     ecg_rr = calculate_rr(maximums=ecg_maximums, times=ecg_times)
+
     if not ecg_rr:
         print('Something went wrong. Unable to extract RR intervals from ECG signal')
     else:
