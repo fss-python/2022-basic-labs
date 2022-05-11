@@ -41,75 +41,60 @@ def is_input_correct(signal):
     return True
 
 
+def calculate_rrd(signal):
+    if not is_input_correct(signal):
+        return None
+    rrd_list = []
+    for i in range(len(signal) - 1):
+        rrd_list.append(signal[i] - signal[i + 1])
+    return rrd_list
+
+
 def calculate_sdnn(signal: list):
     """Calculating SDNN for RR-intervals from the list"""
     if not is_input_correct(signal):
         return None
-
-    # if type(signal) != list or len(signal) == 0:
-    #     return None
-    # for s in signal:
-    #     if type(s) != float:
-    #         return None
-
-    rr_sum = 0
-    for rr in signal:
-        rr_sum += rr
-    rr_mean = rr_sum / len(signal)
+    rr_mean = sum(signal) / len(signal)
     sum_f = 0
     for rr in signal:
         sum_f += (rr - rr_mean) ** 2
-    sdnn_raw = (sum_f / len(signal)) ** 0.5
-    sdnn = round(sdnn_raw, 2)
-    return sdnn
+    return round((sum_f / len(signal)) ** 0.5, 2)
 
 
 def calculate_rmssd(signal: list):
     """Calculating RMSSD for RR-intervals from the list"""
     if not is_input_correct(signal):
         return None
-
     rrd_sq_sum = 0
     for i in range(len(signal) - 1):
         rrd_sq_sum += (signal[i] - signal[i + 1]) ** 2
-    rmssd_raw = (rrd_sq_sum / (len(signal) - 1)) ** 0.5
-    rmssd = round(rmssd_raw, 2)
-    return rmssd
+    return round((rrd_sq_sum / (len(signal) - 1)) ** 0.5, 2)
 
 
 def calculate_sdsd(signal: list):
     """Calculating SDSD for RR-intervals from the list"""
     if not is_input_correct(signal):
         return None
-
-    rrd_sum = 0
-    for i in range(len(signal)):
-        if i < len(signal) - 1:
-            rrd_sum += signal[i] - signal[i + 1]
-    rrd_mean = rrd_sum / (len(signal) - 1)
+    rrd_list = calculate_rrd(signal)
+    rrd_mean = sum(rrd_list) / len(rrd_list)
     sq_sum = 0
-    for i in range(len(signal)):
-        if i < len(signal) - 1:
-            sq_sum += ((signal[i] - signal[i + 1]) - rrd_mean) ** 2
-    # sdsd_raw = (sq_sum / (len(signal) - 2)) ** (1 / 2)
-    # sdsd = round(sdsd_raw, 2)
-    # return sdsd
-    return round((sq_sum / (len(signal) - 2)) ** 0.5, 2)
+    for rrd_item in rrd_list:
+        sq_sum += (rrd_item - rrd_mean) ** 2
+    return round((sq_sum / (len(rrd_list) - 1)) ** 0.5, 2)
 
 
 def calculate_nn_pnn(signal: list, threshold: int):
     """Calculating NN and pNN for RR-intervals from the list"""
     if not is_input_correct(signal):
         return None
-
     if type(threshold) != float and type(threshold) != int:
         return None
+    rrd_list = calculate_rrd(signal)
     nn = 0
-    for i in range(len(signal)):
-        if i < len(signal) - 1:
-            if abs(signal[i] - signal[i + 1]) <= threshold:
-                nn += 1
-    pnn = nn / (len(signal) - 1)
+    for rrd_item in rrd_list:
+        if abs(rrd_item) <= threshold:
+            nn += 1
+    pnn = nn / len(rrd_list)
     return [nn, round(pnn, 2)]
 
 
@@ -118,8 +103,12 @@ def save_hrv_in_file(hrv_characteristics: dict, path: str):
     if type(hrv_characteristics) != dict or type(path) != str:
         return -1
     with open(path, 'w') as file:
-        for key, value in hrv_characteristics.items():
-            file.write(f'{key}\t{value}\n')
+        for index, key in enumerate(hrv_characteristics):
+            value = hrv_characteristics.get(key)
+            if index < len(hrv_characteristics):
+                file.write(f'{key}\t{value}\n')
+            else:
+                file.write(f'{key}\t{value}')
 
 
 # Lab 2 demonstration goes below

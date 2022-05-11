@@ -63,22 +63,6 @@ def detect_maximums(signal: list, threshold: float):
     return maximums
 
 
-'''    Without first and last item variant
-    
-    maximums = [0]
-    i = 1
-    for s in signal[1:-1]:
-        if signal[i] >= threshold and signal[i - 1] <= signal[i] and signal[i + 1] < signal[i]:
-            maximums.append(1)
-            i+=1
-        else:
-            maximums.append(0)
-            i+=1
-    maximums.append(0)
-    return maximums
-'''
-
-
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
     if type(signal) != list or len(signal) == 0:
@@ -121,24 +105,6 @@ def calculate_rr(maximums: list, times: list):
     return rr_clean
 
 
-'''
-if type(maximums) != list or type(times) != list:
-    return None
-i = maximums.index(1)
-rr_list = []
-for m in maximums[i:]:
-    if type(m) != bool:
-        return None
-    if m == 1:
-        rr = times[maximums.index(1, i + 1)] - times[i]
-        print(rr)
-        rr_list.append(rr)
-        i += 1
-    else:
-        i += 1
-return rr_list
-'''
-
 # Lab 1 demonstration goes below
 if __name__ == '__main__':
 
@@ -150,7 +116,7 @@ if __name__ == '__main__':
     ecg_raw = read_ecg_raw_file(DATA_PATH)
 
     print(f'Read ECG file. It has {len(ecg_raw)} values!')
-    # signal=[1.3,5.7,6.7,4.7]
+
     print('Detecting threshold')
     threshold = calculate_threshold(signal=ecg_raw)
     print(f'ECG maximum threshold is {threshold}')
@@ -158,24 +124,11 @@ if __name__ == '__main__':
     print('Detecting maximums')
     ecg_maximums = detect_maximums(signal=ecg_raw, threshold=threshold)
 
-    # print(ecg_maximums)
-    # print(ecg_maximums.count(1))
-    # print(len(ecg_raw))
-    # print(len(ecg_maximums))
-    # SAMPLE_RATE = 1500
-
     print('Calculating times for each ECG signal entry')
     ecg_times = calculate_times(signal=ecg_raw, sample_rate=SAMPLE_RATE)
 
-    # print(ecg_times)
-    # print(ecg_times[0:10],ecg_times[-10:-1])
-    # print(len(ecg_times))
-
     print('Calculating RR intervals')
     ecg_rr = calculate_rr(maximums=ecg_maximums, times=ecg_times)
-
-    # print(ecg_rr)
-    # print(type(ecg_rr))
 
     if not ecg_rr:
         print('Something went wrong. Unable to extract RR intervals from ECG signal')
