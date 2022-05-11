@@ -30,23 +30,27 @@ def read_ecg_rr_file(file_path: Path):
 
 # Lab 2 implementation goes below
 
-# def signal_check(signal):
-#     if type(signal) != list or len(signal) == 0:
-#         return None
-#     for s in signal:
-#         if type(s) != float:
-#             return None
+def is_input_correct(signal):
+    if type(signal) != list or len(signal) == 0:
+        return False
+    for s in signal:
+        if type(s) != float and type(s) != int:
+            return False
+        if s <= 0:
+            return False
+    return True
 
 
 def calculate_sdnn(signal: list):
     """Calculating SDNN for RR-intervals from the list"""
-    # signal_check(signal)
-
-    if type(signal) != list or len(signal) == 0:
+    if not is_input_correct(signal):
         return None
-    for s in signal:
-        if type(s) != float:
-            return None
+
+    # if type(signal) != list or len(signal) == 0:
+    #     return None
+    # for s in signal:
+    #     if type(s) != float:
+    #         return None
 
     rr_sum = 0
     for rr in signal:
@@ -55,39 +59,28 @@ def calculate_sdnn(signal: list):
     sum_f = 0
     for rr in signal:
         sum_f += (rr - rr_mean) ** 2
-    sdnn_raw = (sum_f / len(signal)) ** (1/2)
+    sdnn_raw = (sum_f / len(signal)) ** 0.5
     sdnn = round(sdnn_raw, 2)
     return sdnn
 
 
 def calculate_rmssd(signal: list):
     """Calculating RMSSD for RR-intervals from the list"""
-    # signal_check(signal)
-
-    if type(signal) != list or len(signal) == 0:
+    if not is_input_correct(signal):
         return None
-    for s in signal:
-        if type(s) != float:
-            return None
 
     rrd_sq_sum = 0
-    for i in range(len(signal)):
-        if i < len(signal) - 1:
-            rrd_sq_sum += (signal[i] - signal[i + 1]) ** 2
-    rmssd_raw = (rrd_sq_sum / (len(signal) - 1)) ** (1 / 2)
+    for i in range(len(signal) - 1):
+        rrd_sq_sum += (signal[i] - signal[i + 1]) ** 2
+    rmssd_raw = (rrd_sq_sum / (len(signal) - 1)) ** 0.5
     rmssd = round(rmssd_raw, 2)
     return rmssd
 
 
 def calculate_sdsd(signal: list):
     """Calculating SDSD for RR-intervals from the list"""
-    # signal_check(signal)
-
-    if type(signal) != list or len(signal) == 0:
+    if not is_input_correct(signal):
         return None
-    for s in signal:
-        if type(s) != float:
-            return None
 
     rrd_sum = 0
     for i in range(len(signal)):
@@ -98,20 +91,16 @@ def calculate_sdsd(signal: list):
     for i in range(len(signal)):
         if i < len(signal) - 1:
             sq_sum += ((signal[i] - signal[i + 1]) - rrd_mean) ** 2
-    sdsd_raw = (sq_sum / (len(signal) - 2)) ** (1 / 2)
-    sdsd = round(sdsd_raw, 2)
-    return sdsd
+    # sdsd_raw = (sq_sum / (len(signal) - 2)) ** (1 / 2)
+    # sdsd = round(sdsd_raw, 2)
+    # return sdsd
+    return round((sq_sum / (len(signal) - 2)) ** 0.5, 2)
 
 
 def calculate_nn_pnn(signal: list, threshold: int):
     """Calculating NN and pNN for RR-intervals from the list"""
-    # signal_check(signal)
-
-    if type(signal) != list or len(signal) == 0:
+    if not is_input_correct(signal):
         return None
-    for s in signal:
-        if type(s) != float:
-            return None
 
     if type(threshold) != float and type(threshold) != int:
         return None
