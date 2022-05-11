@@ -34,9 +34,9 @@ def read_ecg_rr_file(file_path: Path):
 #         if type(i) != float:
 #             return None
 
-def calculating_rrd (signal: list):
+def calculate_rrd (signal: list):
     rrd=[]
-    for i in range(0,len(signal [1:])):
+    for i in range(len(signal)-1):
         rrd_i=signal[i]-signal[i+1]
         rrd.append(rrd_i)
     return rrd
@@ -67,12 +67,12 @@ def calculate_rmssd(signal: list):
     for i in signal:
         if type(i) != float:
             return None
-    sum = 0
-    rrd = calculating_rrd(signal)
+    sum_of_brackets = 0
+    rrd = calculate_rrd(signal)
     for i in rrd:
-        skobki = i**2
-        sum+=skobki
-    return round((sum/(len(signal)-1))**0.5, 2)
+        brackets = i**2
+        sum_of_brackets += brackets
+    return round((sum_of_brackets/(len(signal)-1))**0.5, 2)
 
 def calculate_sdsd(signal: list):
     """Calculating SDSD for RR-intervals from the list"""
@@ -83,12 +83,12 @@ def calculate_sdsd(signal: list):
     for i in signal:
         if type(i) != float:
             return None
-    rrd=calculating_rrd(signal)
+    rrd=calculate_rrd(signal)
     mean_rrd=sum(rrd)/len(rrd)
     brackets_sum=0
     for i in rrd:
-        brackets_sum+=(i-mean_rrd)**2
-    return round((brackets_sum/(len(rrd[1:])))**0.5, 2)
+        brackets_sum += (i-mean_rrd)**2
+    return round((brackets_sum/(len(rrd)-1))**0.5, 2)
 
 def calculate_nn_pnn(signal: list, threshold: int):
     """Calculating NN and pNN for RR-intervals from the list"""
@@ -101,15 +101,15 @@ def calculate_nn_pnn(signal: list, threshold: int):
             return None
     if type(threshold) != int:
         return None
-    rrd_list=calculating_rrd(signal)
+    rrd_list=calculate_rrd(signal)
     result=[]
     nn=[]
     for i in rrd_list:
         if abs(i) <= threshold:
             nn.append(i)
-    result.append(len(nn))
-    result.append(round(len(nn)/len(rrd_list), 2))
-    return result
+    # result.append(len(nn))
+    # result.append(round(len(nn)/len(rrd_list), 2))
+    return len(nn), round(len(nn)/len(rrd_list), 2)
 
 def save_hrv_in_file(hrv_characteristics: dict, path: str):
     """Calculating HRV time-scale metrics for RR-intervals from the list"""
@@ -118,8 +118,13 @@ def save_hrv_in_file(hrv_characteristics: dict, path: str):
     if type(path) != str:
         return -1
     with open(path, 'w') as f:
-        for key, value in hrv_characteristics.items():
-            f.write(f'{key}\t{value}\n')
+        for index, key in enumerate(hrv_characteristics):
+            value = hrv_characteristics.get(key)
+            if index<len(hrv_characteristics)-1:
+                f.write(f'{key}\t{value}\n')
+            else:
+                f.write(f'{key}\t{value}')
+
 
 
 
