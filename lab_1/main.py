@@ -29,15 +29,18 @@ def read_ecg_raw_file(file_path: Path):
 
 
 # Lab 1 implementation goes below
+def is_correct_input(input:list):
+    if type(input) != list and len(input) == 0:
+        return False
+    for i in input:
+        if type(i) != float and type(i) != int:
+            return False
+    return True
+
 def calculate_threshold(signal: list):
     """Calculating threshold for RR peaks detection"""
-    if type(signal) != list:
+    if not is_correct_input(signal):
         return None
-    if len(signal) == 0:
-        return None
-    for i in signal:
-        if type(i) != float and type(i) != int:
-            return None
     maximum = signal[0]
     for i in signal:
         if i > maximum:
@@ -46,13 +49,8 @@ def calculate_threshold(signal: list):
 
 def detect_maximums(signal: list, threshold: float):
     """Labeling RR peaks"""
-    if type(signal) != list:
+    if not is_correct_input(signal):
         return None
-    if len(signal) == 0:
-        return None
-    for i in signal:
-        if type(i) != float and type(i) != int:
-            return None
     if type(threshold) != float and type(threshold) != int:
         return None
     ecg_maximums = []
@@ -73,13 +71,8 @@ def detect_maximums(signal: list, threshold: float):
 
 def calculate_times(signal: list, sample_rate: int):
     """Calculating timestamp for each item in ECG"""
-    if type(signal) != list:
+    if not is_correct_input(signal):
         return None
-    if len(signal) == 0:
-        return None
-    for i in signal:
-        if type(i) != float and type(i) != int:
-            return None
     if type(sample_rate) != int:
         return None
     ecg_times = []
@@ -91,21 +84,12 @@ def calculate_times(signal: list, sample_rate: int):
 
 def calculate_rr(maximums: list, times: list):
     """Extract RR intervals"""
-    if type(maximums) != list:
+    if not is_correct_input(times):
         return None
-    if len(maximums) == 0:
+    if not is_correct_input(maximums):
         return None
     for i in maximums:
-        if type(i) != float and type(i) != int:
-            return None
         if i != 0 and i != 1:
-            return None
-    if type(times) != list:
-        return None
-    if len(times) == 0:
-        return None
-    for i in times:
-        if type(i) != float and type(i) != int:
             return None
     if len(maximums) != len(times):
         return None

@@ -27,89 +27,76 @@ def read_ecg_rr_file(file_path: Path):
         rr_signal.append(numeric_value)
     return rr_signal
 
-# def test_input_of_float(input:list):
-#     if type(input) != list or len(input)==0:
-#         return None
-#     for i in input:
-#         if type(i) != float:
-#             return None
 
-def calculate_rrd (signal: list):
-    rrd=[]
-    for i in range(len(signal)-1):
-        rrd_i=signal[i]-signal[i+1]
+def is_input_correct (input: list):
+    if type(input) != list or len(input) == 0:
+        return False
+    for i in input:
+        if type(i) != float and type(i) != int or i<0:
+            return False
+    return True
+
+def calculate_rrd(signal: list):
+    rrd = []
+    for i in range(len(signal) - 1):
+        rrd_i = signal[i] - signal[i + 1]
         rrd.append(rrd_i)
     return rrd
+
 
 # Lab 2 implementation goes below
 def calculate_sdnn(signal: list):
     """Calculating SDNN for RR-intervals from the list"""
-    if type(signal) != list:
+    if not is_input_correct (signal):
         return None
-    if len(signal) == 0:
-        return None
+    mean_rr = sum(signal) / len(signal)
+    sum_diff = 0
     for i in signal:
-        if type(i) != float:
-            return None
-    mean_rr=sum(signal)/len(signal)
-    sum_diff=0
-    for i in signal:
-        rri_rrmean=(i-mean_rr)**2
-        sum_diff+=rri_rrmean
-    return round((sum_diff/len(signal))**0.5, 2)
+        rri_rrmean = (i - mean_rr) ** 2
+        sum_diff += rri_rrmean
+    return round((sum_diff / len(signal)) ** 0.5, 2)
+
 
 def calculate_rmssd(signal: list):
     """Calculating RMSSD for RR-intervals from the list"""
-    if type(signal) != list:
+    if not is_input_correct(signal):
         return None
-    if len(signal) == 0:
-        return None
-    for i in signal:
-        if type(i) != float:
-            return None
     sum_of_brackets = 0
     rrd = calculate_rrd(signal)
     for i in rrd:
-        brackets = i**2
+        brackets = i ** 2
         sum_of_brackets += brackets
-    return round((sum_of_brackets/(len(signal)-1))**0.5, 2)
+    return round((sum_of_brackets / (len(signal) - 1)) ** 0.5, 2)
+
 
 def calculate_sdsd(signal: list):
     """Calculating SDSD for RR-intervals from the list"""
-    if type(signal) != list:
+    if not is_input_correct(signal):
         return None
-    if len(signal) == 0:
-        return None
-    for i in signal:
-        if type(i) != float:
-            return None
-    rrd=calculate_rrd(signal)
-    mean_rrd=sum(rrd)/len(rrd)
-    brackets_sum=0
+    rrd = calculate_rrd(signal)
+    mean_rrd = sum(rrd) / len(rrd)
+    brackets_sum = 0
     for i in rrd:
-        brackets_sum += (i-mean_rrd)**2
-    return round((brackets_sum/(len(rrd)-1))**0.5, 2)
+        brackets_sum += (i - mean_rrd) ** 2
+    return round((brackets_sum / (len(rrd) - 1)) ** 0.5, 2)
+
 
 def calculate_nn_pnn(signal: list, threshold: int):
     """Calculating NN and pNN for RR-intervals from the list"""
-    if type(signal) != list:
+    if not is_input_correct(signal):
         return None
-    if len(signal) == 0:
-        return None
-    for i in signal:
-        if type(i) != float:
-            return None
     if type(threshold) != int:
         return None
-    rrd_list=calculate_rrd(signal)
-    result=[]
-    nn=[]
+    rrd_list = calculate_rrd(signal)
+    result = []
+    nn = []
     for i in rrd_list:
         if abs(i) <= threshold:
             nn.append(i)
     # result.append(len(nn))
     # result.append(round(len(nn)/len(rrd_list), 2))
-    return len(nn), round(len(nn)/len(rrd_list), 2)
+    return len(nn), round(len(nn) / len(rrd_list), 2)
+
 
 def save_hrv_in_file(hrv_characteristics: dict, path: str):
     """Calculating HRV time-scale metrics for RR-intervals from the list"""
@@ -120,12 +107,10 @@ def save_hrv_in_file(hrv_characteristics: dict, path: str):
     with open(path, 'w') as f:
         for index, key in enumerate(hrv_characteristics):
             value = hrv_characteristics.get(key)
-            if index<len(hrv_characteristics)-1:
+            if index < len(hrv_characteristics) - 1:
                 f.write(f'{key}\t{value}\n')
             else:
                 f.write(f'{key}\t{value}')
-
-
 
 
 # Lab 2 demonstration goes below
